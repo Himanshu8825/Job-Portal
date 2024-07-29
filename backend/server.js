@@ -7,6 +7,7 @@ const connectDB = require('./utils/DB');
 const userRouter = require('./routes/UserRoute');
 const companyRouter = require('./routes/CompanyRoute');
 const jobRoute = require('./routes/JobRoute');
+const applicationRouter = require('./routes/ApplicationRoute');
 
 //! Environment variables for port and MongoDB URI
 const port = process.env.PORT;
@@ -28,6 +29,7 @@ app.use(cookiParser());
 app.use('/user', userRouter);
 app.use('/company', companyRouter);
 app.use('/job', jobRoute);
+app.use('/application', applicationRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');
