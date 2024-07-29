@@ -1,9 +1,9 @@
-import { Button } from './components/ui/button';
+import { Navbar } from './Index';
 
 const App = () => {
   return (
     <div>
-      <Button name="Click Me" />
+      <Navbar />
     </div>
   );
 };
