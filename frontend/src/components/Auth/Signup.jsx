@@ -1,6 +1,9 @@
 import { USER_API } from '@/assets/constant';
+import { setLoading } from '@/Redux/Slices/authSlice';
 import axios from 'axios';
+import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import SignUP from '../../assets/SignUp.svg';
@@ -11,6 +14,8 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 const Signup = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -44,19 +49,23 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    dispatch(setLoading(true));
     try {
       const res = await axios.post(`${USER_API}/signup`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         withCredentials: true,
       });
 
       if (res.data.success) {
-        console.log(res);
         navigate('/login');
         toast.success(res.data.message);
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -156,12 +165,20 @@ const Signup = () => {
                 </div>
               </RadioGroup>
             </div>
-            <Button
-              type="submit"
-              className="mt-4 bg-[#6A38C2] hover:bg-[#4712a1]"
-            >
-              Sign up
-            </Button>
+            {loading ? (
+              <Button className="">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Please wait...
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className="mt-4 bg-[#6A38C2] hover:bg-[#4712a1]"
+              >
+                Sign up
+              </Button>
+            )}
+
             <div className="flex justify-center items-center font-medium">
               <p>Already have an account?</p>
               <Link to="/login" className="text-[#6A38C2] ml-2">

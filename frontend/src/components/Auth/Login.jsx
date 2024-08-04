@@ -1,6 +1,9 @@
 import { USER_API } from '@/assets/constant';
+import { setLoading } from '@/Redux/Slices/authSlice';
 import axios from 'axios';
+import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import LogIn from '../../assets/Login.svg';
@@ -11,6 +14,8 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -35,7 +40,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API}/login`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
         withCredentials: true,
       });
       if (res.data.success) {
@@ -44,6 +53,8 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -112,12 +123,20 @@ const Login = () => {
                 </div>
               </RadioGroup>
             </div>
-            <Button
-              type="submit"
-              className="mt-4 bg-[#6A38C2] hover:bg-[#4712a1] text-lg"
-            >
-              Log in
-            </Button>
+            {loading ? (
+              <Button className="">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Please wait...
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className="mt-4 bg-[#6A38C2] hover:bg-[#4712a1] text-lg"
+              >
+                Log in
+              </Button>
+            )}
+
             <div className="flex justify-center items-center font-medium">
               <p>Don't have an account?</p>
               <Link to="/signup" className="text-[#6A38C2] ml-2">
