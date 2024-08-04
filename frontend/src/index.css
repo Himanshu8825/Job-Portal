@@ -70,9 +70,21 @@
   }
 }
 
-.poppins-medium {
-  font-family: 'Poppins', sans-serif;
-  
+@layer components {
+  .shadow-shadowOne {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 }
 
 
+@layer components {
+  .bannerIcon {
+    @apply w-16 h-16 bg-black bg-opacity-25 text-gray-200 text-xl inline-flex items-center justify-center rounded-full shadow-md hover:bg-opacity-40 hover:-translate-y-1 transition-all hover:text-blue-500 cursor-pointer duration-300;
+  }
+}
+
+
+
+.poppins-medium {
+  font-family: 'Poppins', sans-serif;
+}

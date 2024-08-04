@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { Home, Login, Navbar, Signup } from './Index';
+import { Footer, Home, Login, Navbar, Signup } from './Index';
 
 const App = () => {
   return (
@@ -11,6 +11,9 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+
+
+      <Footer />
     </>
   );
 };
