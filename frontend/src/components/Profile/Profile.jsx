@@ -1,22 +1,20 @@
-import { AppliedJobs } from '@/Index';
+import { AppliedJobs, UpdateProfileDilouge } from '@/Index';
 import { Mail, PhoneCall } from 'lucide-react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 
 const Profile = () => {
-  const skills = [
-    'JavaScript',
-    'React',
-    'Node.js',
-    'Python',
-    'Java',
-    'C++',
-    'HTML/CSS',
-  ];
-
   const isResume = true;
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector((state) => state.auth);
+
+  const toggle = () => {
+    setOpen((prev) => !prev);
+  };
 
   return (
     <div>
@@ -26,17 +24,14 @@ const Profile = () => {
             <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />
           </Avatar>
 
-          <h2 className="text-lg font-semibold mt-4">Lindsey James</h2>
+          <h2 className="text-lg font-semibold mt-4">{user?.fullName}</h2>
 
-          <p className="text-center text-gray-700 mt-2">
-            Actress, musician, songwriter, and artist. DM for work inquiries or{' '}
-            me in your message.
-          </p>
+          <p className="text-center text-gray-700 mt-2">{user?.profile?.bio}</p>
 
-          <div className='w-full max-w-2xl'>
+          <div className="w-full max-w-2xl">
             <h1 className=" mt-4 text-lg font-bold text-[#F83002] ">Skills</h1>
-            {skills.length !== 0
-              ? skills.map((skill, index) => (
+            {user?.profile?.skills.length !== 0
+              ? user?.profile?.skills.map((skill, index) => (
                   <Badge
                     key={index}
                     className="text-sm m-2 bg-[#6A38C2] hover:bg-[#5b30a6] "
@@ -66,16 +61,19 @@ const Profile = () => {
           <div className="flex items-center gap-8 mt-6">
             <div className="flex justify-center items-center gap-1">
               <Mail className="text-[#6A38C2]" />
-              <span className="font-medium"> admin@gmail.com </span>
+              <span className="font-medium"> {user?.email} </span>
             </div>
             <div className="flex justify-center items-center gap-1">
               <PhoneCall className="text-[#6A38C2]" />
-              <span className=" font-medium ">+918825151049</span>
+              <span className=" font-medium ">+91 {user?.phoneNumber}</span>
             </div>
           </div>
 
           <div className="mt-6 flex space-x-4">
-            <Button className=" bg-[#6A38C2] hover:bg-[#5b30a6]  text-white px-4 py-2 rounded-md ">
+            <Button
+              onClick={toggle}
+              className=" bg-[#6A38C2] hover:bg-[#5b30a6]  text-white px-4 py-2 rounded-md "
+            >
               Edit Profile
             </Button>
           </div>
@@ -85,6 +83,8 @@ const Profile = () => {
         <h1 className=" font-bold text-lg">Applied Jobs</h1>
         <AppliedJobs />
       </div>
+
+      <UpdateProfileDilouge open={open} setOpen={setOpen} />
     </div>
   );
 };

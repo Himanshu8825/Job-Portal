@@ -68,10 +68,10 @@ const Navbar = () => {
                     </div>
                     <div className="">
                       <h4 className="font-medium text-lg text-center">
-                        Suraj Verma
+                        {user?.fullName}
                       </h4>
                       <p className=" text-sm text-muted-foreground">
-                        Lorem ipsum dolor sit amet.
+                        {user?.profile?.bio}
                       </p>
                     </div>
                   </div>

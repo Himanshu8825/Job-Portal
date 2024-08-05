@@ -14,6 +14,7 @@ import Navbar from './components/shared/Navbar';
 import Browse from './pages/Browse';
 import DetailsPage from './pages/DetailsPage';
 import Jobs from './pages/Jobs';
+import UpdateProfileDilouge from './components/UpdateProfileDilouge';
 
 export {
   AppliedJobs,
@@ -32,4 +33,5 @@ export {
   Navbar,
   Profile,
   Signup,
+  UpdateProfileDilouge,
 };
