@@ -1,13 +1,14 @@
 import { PopoverTrigger } from '@radix-ui/react-popover';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { FiUser } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { Popover, PopoverContent } from '../ui/popover';
 
 const Navbar = () => {
-  const user = false;
+  const { user } = useSelector((state) => state.auth);
   return (
     <div className="hidden lg:block bg-white px-16 py-4">
       <div className="flex items-center justify-between">
@@ -82,7 +83,7 @@ const Navbar = () => {
                         variant="link"
                         className="h-6 w-14 font-medium text-md"
                       >
-                        Profile
+                        <Link to="/profile">Profile</Link>
                       </Button>
                     </div>
                     <div className="flex items-center mt-2">

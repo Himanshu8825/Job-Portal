@@ -1,5 +1,5 @@
 import { USER_API } from '@/assets/constant';
-import { setLoading } from '@/Redux/Slices/authSlice';
+import { setLoading, setUser } from '@/Redux/Slices/authSlice';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
@@ -48,6 +48,7 @@ const Login = () => {
         withCredentials: true,
       });
       if (res.data.success) {
+        dispatch(setUser(res.data.user));
         navigate('/');
         toast.success(res.data.message);
       }
@@ -124,7 +125,7 @@ const Login = () => {
               </RadioGroup>
             </div>
             {loading ? (
-              <Button className="">
+              <Button className="bg-[#6A38C2] hover:bg-[#4712a1]">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Please wait...
               </Button>

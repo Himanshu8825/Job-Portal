@@ -1,9 +1,14 @@
 import { Bookmark } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarImage } from './ui/avatar';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 
 const Job = () => {
+  const navigate = useNavigate();
+
+  const jobId = "jytsgbcwkush"
+
   return (
     <div className="p-6 poppins-medium rounded-xl  shadow-md bg-white border border-gray-200 cursor-pointer transition-all  duration-300 poppins-medium">
       <div className="flex justify-between items-center">
@@ -46,7 +51,11 @@ const Job = () => {
       </div>
 
       <div className="flex items-center justify-between  mt-6">
-        <Button variant="outline" className="h-8">
+        <Button
+          onClick={() => navigate(`/details/${jobId}`)}
+          variant="outline"
+          className="h-8"
+        >
           Details
         </Button>
         <Button className="bg-[#7209b7] hover:bg-[#5f049b] h-8">

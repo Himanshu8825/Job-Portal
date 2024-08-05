@@ -19,7 +19,7 @@ const JobCard = () => {
     <div>
       {jobPositions.map((job, index) => {
         return (
-          <div className="p-6 poppins-medium rounded-xl  hover:shadow-xl bg-white border border-gray-200 cursor-pointer transition-all  duration-300">
+          <div key={index} className="p-6 poppins-medium rounded-xl  hover:shadow-xl bg-white border border-gray-200 cursor-pointer transition-all  duration-300">
             <div>
               <h1 className=" font-medium text-lg">{job.companyName}</h1>
               <p className=" text-sm text-gray-500">{job.country}</p>
