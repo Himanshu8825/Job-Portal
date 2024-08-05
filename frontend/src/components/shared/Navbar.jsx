@@ -9,7 +9,7 @@ import { Popover, PopoverContent } from '../ui/popover';
 const Navbar = () => {
   const user = false;
   return (
-    <div className=" bg-white px-16 py-4">
+    <div className="hidden lg:block bg-white px-16 py-4">
       <div className="flex items-center justify-between">
         <div>
           <Link to="/">
@@ -21,9 +21,16 @@ const Navbar = () => {
 
         <div className="flex items-center gap-6">
           <ul className=" flex font-medium items-center gap-5">
-            <li>Home </li>
-            <li> Job </li>
-            <li> Browse </li>
+            <Link to="/">
+              {' '}
+              <li>Home </li>
+            </Link>
+            <Link to="/jobs">
+              <li> Job </li>
+            </Link>
+            <Link to="/browse">
+              <li> Browse </li>
+            </Link>
           </ul>
 
           {!user ? (
