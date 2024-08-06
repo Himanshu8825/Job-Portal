@@ -1,6 +1,8 @@
 const User = require('../models/UserModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const getDataUri = require('../utils/dataUri');
+const cloudinary = require('../utils/cloudinary.js');
 
 const signupUser = async (req, res) => {
   try {
@@ -124,6 +126,10 @@ const logoutUser = async (req, res) => {
 const updateProfile = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
+    const file = req.file;
+    
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     let skillsArray;
     if (skills) {
@@ -139,12 +145,18 @@ const updateProfile = async (req, res) => {
         .json({ message: 'User not found', success: false });
     }
 
-    //updating Profile
+    // Update user profile
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skills) user.profile.skills = skillsArray;
+
+    if (cloudResponse) {
+      console.log('cloudResponse ', cloudResponse);
+      user.profile.resume = cloudResponse.secure_url;
+      user.profile.resumeOriginalName = file.originalname;
+    }
 
     await user.save();
 

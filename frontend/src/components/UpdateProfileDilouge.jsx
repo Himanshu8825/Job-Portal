@@ -50,7 +50,7 @@ const UpdateprofileDialog = ({ open, setOpen }) => {
     formData.append('bio', input.bio);
     formData.append('skills', input.skills);
     if (input.file) {
-      formData.append('profilePicture', input.file);
+      formData.append('file', input.file);
     }
 
     try {
@@ -155,7 +155,7 @@ const UpdateprofileDialog = ({ open, setOpen }) => {
                 </Label>
                 <Input
                   id="file"
-                  name="profilePicture"
+                  name="file"
                   type="file"
                   accept="application/pdf"
                   onChange={fileChangeHandler}
@@ -167,8 +167,8 @@ const UpdateprofileDialog = ({ open, setOpen }) => {
               {loading ? (
                 <Button className="w-full my-4 bg-green-400 hover:bg-green-600">
                   {' '}
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin  " />{' '}
-                  Please wait{' '}
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin  " /> Please
+                  wait{' '}
                 </Button>
               ) : (
                 <Button

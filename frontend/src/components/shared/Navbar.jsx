@@ -1,14 +1,37 @@
+import { USER_API } from '@/assets/constant';
+import { setUser } from '@/Redux/Slices/authSlice';
 import { PopoverTrigger } from '@radix-ui/react-popover';
+import axios from 'axios';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { FiUser } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { Popover, PopoverContent } from '../ui/popover';
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logOutHandler = async () => {
+    try {
+      const res = await axios.get(`${USER_API}/logout`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        dispatch(setUser(null));
+        navigate('/');
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="hidden lg:block bg-white px-16 py-4">
       <div className="flex items-center justify-between">
@@ -89,8 +112,9 @@ const Navbar = () => {
                     <div className="flex items-center mt-2">
                       <AiOutlineLogout className="text-xl" />
                       <Button
+                        onClick={logOutHandler}
                         variant="link"
-                        className="h-6 w-14 font-medium text-md "
+                        className="h-6 w-14 font-medium text-md cursor-pointer "
                       >
                         Logout
                       </Button>
