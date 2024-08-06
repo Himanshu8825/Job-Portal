@@ -21,7 +21,7 @@ const Profile = () => {
       <div className="bg-white poppins-medium rounded-xl shadow-xl  max-w-3xl mx-auto p-6">
         <div className="flex flex-col items-center ">
           <Avatar className="w-24 h-24 rounded-full border-2 border-white">
-            <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />
+            <AvatarImage src={user?.profile?.profilePhoto} alt="Profile" />
           </Avatar>
 
           <h2 className="text-lg font-semibold mt-4">{user?.fullName}</h2>

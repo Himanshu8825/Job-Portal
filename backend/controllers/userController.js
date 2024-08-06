@@ -14,6 +14,10 @@ const signupUser = async (req, res) => {
         .json({ message: 'All fields are required', success: false });
     }
 
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
     const user = await User.findOne({ email });
 
     if (user) {
@@ -30,6 +34,9 @@ const signupUser = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
     });
 
     return res.status(200).json({
@@ -127,7 +134,7 @@ const updateProfile = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
     const file = req.file;
-    
+
     const fileUri = getDataUri(file);
     const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 

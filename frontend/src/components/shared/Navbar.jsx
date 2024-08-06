@@ -73,7 +73,7 @@ const Navbar = () => {
               <PopoverTrigger>
                 <Avatar>
                   <AvatarImage
-                    src="https://github.com/shadcn.png"
+                    src={user?.profile?.profilePhoto}
                     alt="@shadcn"
                   />
                 </Avatar>
@@ -84,7 +84,7 @@ const Navbar = () => {
                     <div className="flex justify-center items-center">
                       <Avatar className=" cursor-pointer">
                         <AvatarImage
-                          src="https://github.com/shadcn.png"
+                          src={user?.profile?.profilePhoto}
                           alt="@shadcn"
                         />
                       </Avatar>

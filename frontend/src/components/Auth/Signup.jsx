@@ -132,7 +132,7 @@ const Signup = () => {
               <Input
                 id="picture"
                 type="file"
-                name="profilePicture"
+                name="file"
                 accept="image/*"
                 onChange={handleChange}
                 className="cursor-pointer"
@@ -167,7 +167,7 @@ const Signup = () => {
             </div>
             {loading ? (
               <Button className="">
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin bg-green-400 hover:bg-green-600" />
                 Please wait...
               </Button>
             ) : (
