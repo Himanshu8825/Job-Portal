@@ -4,15 +4,24 @@ import { Avatar, AvatarImage } from './ui/avatar';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 
-const Job = () => {
+const Job = ({ job }) => {
   const navigate = useNavigate();
 
-  const jobId = "jytsgbcwkush"
+  const daysAgoFunc = (mongodbTime) => {
+    const createdAt = new Date(mongodbTime);
+    const currentTime = new Date();
+    const timeDifference = currentTime - createdAt;
+    return Math.floor(timeDifference/(1000*24*60*60));
+}
 
   return (
-    <div className="p-6 poppins-medium rounded-xl  shadow-md bg-white border border-gray-200 cursor-pointer transition-all  duration-300 poppins-medium">
+    <div className="p-4 poppins-medium rounded-xl  shadow-md bg-white border border-gray-200 cursor-pointer transition-all  duration-300 poppins-medium">
       <div className="flex justify-between items-center">
-        <p className="text-sm text-gray-500">2 days ago</p>
+        <p className="text-sm text-gray-500">
+          {daysAgoFunc(job?.createdAt) === 0
+            ? 'Today'
+            : `${daysAgoFunc(job?.createdAt)} days ago`}
+        </p>
         <Button variant="outline" className=" rounded-full" size="icon">
           <Bookmark />
         </Button>
@@ -25,34 +34,48 @@ const Job = () => {
           </Avatar>
         </Button>
         <div className="">
-          <h1 className=" font-medium text-lg">Company Name</h1>
-          <p className=" text-sm text-gray-500">India</p>
+          <h1 className=" font-medium text-lg">{job?.company?.name}</h1>
+          <div className="flex gap-4 items-center">
+            <p className=" text-sm text-gray-500">India</p>
+            <p className=" text-sm ">{job?.location}</p>
+          </div>
         </div>
       </div>
 
       <div className="">
-        <h1 className="font-bold text-lg py-2">Title</h1>
-        <p className=" text-sm text-gray-600">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus
-          quam praesentium placeat ex culpa ad numquam ut minima quia saepe.
-        </p>
+        <h1 className="font-semibold text-lg py-1">{job?.title}</h1>
+        <p className=" text-sm text-gray-600">{job?.description}</p>
+      </div>
+
+      <div className="grid grid-cols-3 place-items-center gap-2 mt-4 ">
+        {job?.requirements.map((item, index) => {
+          return (
+            <Badge
+              key={index}
+              variant={'ghost'}
+              className={'hover:text-[#7209b7]  '}
+            >
+              {item}
+            </Badge>
+          );
+        })}
       </div>
 
       <div className="flex items-center gap-2 mt-4">
         <Badge className={'text-blue-700'} variant="ghost">
-          12 Postion
+          {job?.position} Positions
         </Badge>
         <Badge className={'text-[#F83002]'} variant="ghost">
-          Part Time
+          {job?.jobType}
         </Badge>
         <Badge className={'text-[#7209b7]'} variant="ghost">
-          12LPA
+          {job?.salary} LPA
         </Badge>
       </div>
 
       <div className="flex items-center justify-between  mt-6">
         <Button
-          onClick={() => navigate(`/details/${jobId}`)}
+          onClick={() => navigate(`/details/${job?._id}`)}
           variant="outline"
           className="h-8"
         >

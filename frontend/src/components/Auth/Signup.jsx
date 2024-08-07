@@ -166,8 +166,8 @@ const Signup = () => {
               </RadioGroup>
             </div>
             {loading ? (
-              <Button className="">
-                <Loader2 className="mr-2 h-4 w-4 animate-spin bg-green-400 hover:bg-green-600" />
+              <Button className="bg-green-400 hover:bg-green-600">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin " />
                 Please wait...
               </Button>
             ) : (
