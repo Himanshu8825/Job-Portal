@@ -15,6 +15,7 @@ import Browse from './pages/Browse';
 import DetailsPage from './pages/DetailsPage';
 import Jobs from './pages/Jobs';
 import UpdateProfileDilouge from './components/UpdateProfileDilouge';
+import Companies from './Admin/Companies';
 
 export {
   AppliedJobs,
@@ -34,4 +35,5 @@ export {
   Profile,
   Signup,
   UpdateProfileDilouge,
+  Companies,
 };

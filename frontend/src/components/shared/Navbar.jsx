@@ -45,16 +45,28 @@ const Navbar = () => {
 
         <div className="flex items-center gap-6">
           <ul className=" flex font-medium items-center gap-5">
-            <Link to="/">
-              {' '}
-              <li>Home </li>
-            </Link>
-            <Link to="/jobs">
-              <li> Job </li>
-            </Link>
-            <Link to="/browse">
-              <li> Browse </li>
-            </Link>
+            {user && user.role === 'recruiter' ? (
+              <>
+                <li>
+                  <Link to="/admin/companies">Compnaies </Link>
+                </li>
+                <li>
+                  <Link to="/admin/jobs"> Jobs</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <Link to="/">
+                  <li>Home </li>
+                </Link>
+                <Link to="/jobs">
+                  <li> Job </li>
+                </Link>
+                <Link to="/browse">
+                  <li> Browse </li>
+                </Link>
+              </>
+            )}
           </ul>
 
           {!user ? (
@@ -100,15 +112,18 @@ const Navbar = () => {
                   </div>
 
                   <div className="flex justify-between px-2">
-                    <div className="flex items-center mt-2">
-                      <FiUser className="text-xl" />
-                      <Button
-                        variant="link"
-                        className="h-6 w-14 font-medium text-md"
-                      >
-                        <Link to="/profile">Profile</Link>
-                      </Button>
-                    </div>
+                    {user && user.role === 'student' && (
+                      <div className="flex items-center mt-2">
+                        <FiUser className="text-xl" />
+                        <Button
+                          variant="link"
+                          className="h-6 w-14 font-medium text-md"
+                        >
+                          <Link to="/profile">Profile</Link>
+                        </Button>
+                      </div>
+                    )}
+
                     <div className="flex items-center mt-2">
                       <AiOutlineLogout className="text-xl" />
                       <Button

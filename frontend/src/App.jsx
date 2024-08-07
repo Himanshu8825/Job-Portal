@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import {
   Browse,
+  Companies,
   DetailsPage,
   Footer,
   Home,
@@ -21,9 +22,13 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path='/details/:id' element={<DetailsPage />} />
+        <Route path="/details/:id" element={<DetailsPage />} />
         <Route path="/browse" element={<Browse />} />
         <Route path="/profile" element={<Profile />} />
+
+        {/* Admin Route Started */}
+
+        <Route path="/admin/companies" element={<Companies />} />
       </Routes>
 
       <Footer />
