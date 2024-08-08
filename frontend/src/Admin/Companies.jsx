@@ -1,9 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import GetAllCompany from '@/hooks/GetAllCompany';
+import { CompaniesTable } from '@/Index';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Companies = () => {
+  GetAllCompany();
   const [input, setInput] = useState('');
   const navigate = useNavigate();
   return (
@@ -23,7 +26,7 @@ const Companies = () => {
             New Company
           </Button>
         </div>
-        {/* <CompaniesTable/> */}
+        <CompaniesTable/>
       </div>
     </div>
   );

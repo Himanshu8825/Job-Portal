@@ -1,4 +1,6 @@
 const Company = require('../models/companyModel');
+const cloudinary = require('../utils/cloudinary.js');
+const getDataUri = require('../utils/dataUri');
 
 const registerCompany = async (req, res) => {
   try {
@@ -39,7 +41,7 @@ const registerCompany = async (req, res) => {
 const getCompanies = async (req, res) => {
   try {
     const userId = req.id;
-    const companies = await Company.find({userId});
+    const companies = await Company.find({ userId });
 
     if (!companies) {
       return res
@@ -84,8 +86,12 @@ const updateCompany = async (req, res) => {
   try {
     const { name, description, website, location } = req.body;
     const file = req.file;
+    const fileURI = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileURI.content);
 
-    const updateData = { name, description, website, location };
+    const logo = cloudResponse.secure_url;
+
+    const updateData = { name, description, website, location, logo };
 
     const company = await Company.findByIdAndUpdate(req.params.id, updateData, {
       new: true,

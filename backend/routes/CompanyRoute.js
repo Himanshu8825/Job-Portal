@@ -6,6 +6,7 @@ const {
   updateCompany,
 } = require('../controllers/componyController');
 const isAuthenticated = require('../middlewares/isAuthenticated');
+const singleUpload = require('../middlewares/multer');
 
 const companyRouter = express.Router();
 
@@ -15,7 +16,6 @@ companyRouter.get('/companies', isAuthenticated, getCompanies);
 
 companyRouter.get('/company/:id', isAuthenticated, getCompanyByID);
 
-companyRouter.put('/update/:id', isAuthenticated, updateCompany);
-
+companyRouter.put('/update/:id', isAuthenticated, singleUpload, updateCompany);
 
 module.exports = companyRouter;

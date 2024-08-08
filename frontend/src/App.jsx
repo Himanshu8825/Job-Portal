@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import {
   Browse,
   Companies,
+  CompanySetup,
+  CreateCompany,
   DetailsPage,
   Footer,
   Home,
@@ -29,6 +31,8 @@ const App = () => {
         {/* Admin Route Started */}
 
         <Route path="/admin/companies" element={<Companies />} />
+        <Route path="/admin/companies/create" element={<CreateCompany />} />
+        <Route path="/admin/companies/:id" element={<CompanySetup />} />
       </Routes>
 
       <Footer />
