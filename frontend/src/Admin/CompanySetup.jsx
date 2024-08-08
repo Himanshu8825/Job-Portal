@@ -2,6 +2,7 @@ import { COMPANY_API } from '@/assets/constant';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import getSingleCompanyByID from '@/hooks/getSingleCompanyByID';
 import axios from 'axios';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -10,9 +11,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
 const CompanySetup = () => {
+  const params = useParams();
+  getSingleCompanyByID(params.id)
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const params = useParams();
 
   const { singleCompany } = useSelector((state) => state.company);
 
@@ -138,7 +140,6 @@ const CompanySetup = () => {
           </div>
           {loading ? (
             <Button className="w-full my-4">
-
               <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
             </Button>
           ) : (

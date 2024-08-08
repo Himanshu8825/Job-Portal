@@ -2,13 +2,21 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import GetAllCompany from '@/hooks/GetAllCompany';
 import { CompaniesTable } from '@/Index';
-import { useState } from 'react';
+import { setSearchCompanyByText } from '@/Redux/Slices/companySlice';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Companies = () => {
   GetAllCompany();
   const [input, setInput] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSearchCompanyByText(input));
+  }, [input]);
+
   return (
     <div>
       {' '}
@@ -26,7 +34,7 @@ const Companies = () => {
             New Company
           </Button>
         </div>
-        <CompaniesTable/>
+        <CompaniesTable />
       </div>
     </div>
   );

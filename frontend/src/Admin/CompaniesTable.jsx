@@ -9,14 +9,35 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const CompaniesTable = () => {
-  const { companies } = useSelector((state) => state.company);
+  const { companies, searchCompanyByText } = useSelector(
+    (state) => state.company
+  );
+  const [filterCompany, setFilterCompany] = useState(companies);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const filteredCompany =
+      companies.length >= 0 &&
+      companies.filter((company) => {
+        if (!searchCompanyByText) {
+          return true;
+        }
+        return company?.name
+          ?.toLowerCase()
+          .includes(searchCompanyByText.toLowerCase());
+      });
+    setFilterCompany(filteredCompany);
+  }, [companies, searchCompanyByText]);
+
   return (
     <div className="poppins-medium ">
       <Table>
-        <TableCaption>A list of you recent registered Companies </TableCaption>
+        <TableCaption>A list of your recent registered Companies </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Logo</TableHead>
@@ -26,11 +47,11 @@ const CompaniesTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {companies?.map((company) => (
-            <tr key={company._id}>
+          {filterCompany?.map((company) => (
+            <TableRow key={company._id}>
               <TableCell>
                 <Avatar>
-                  <AvatarImage src={company.logo} className='h-8' />
+                  <AvatarImage src={company.logo} className="" />
                 </Avatar>
               </TableCell>
               <TableCell className=" text-center ">{company.name}</TableCell>
@@ -39,13 +60,14 @@ const CompaniesTable = () => {
               </TableCell>
               <TableCell className=" text-right">
                 <Button
+                  onClick={() => navigate(`/admin/companies/${company._id}`)}
                   variant="secondary"
                   className=" bg-yellow-400 h-8 hover:bg-yellow-500"
                 >
                   Edit
                 </Button>
               </TableCell>
-            </tr>
+            </TableRow>
           ))}
         </TableBody>
       </Table>
