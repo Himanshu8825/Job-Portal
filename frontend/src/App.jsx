@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import {
+  AdminJobs,
+  Applicants,
   Browse,
   Companies,
   CompanySetup,
@@ -10,6 +12,7 @@ import {
   Jobs,
   Login,
   Navbar,
+  PostJob,
   Profile,
   Signup,
 } from './Index';
@@ -33,6 +36,9 @@ const App = () => {
         <Route path="/admin/companies" element={<Companies />} />
         <Route path="/admin/companies/create" element={<CreateCompany />} />
         <Route path="/admin/companies/:id" element={<CompanySetup />} />
+        <Route path="/admin/jobs" element={<AdminJobs />} />
+        <Route path="/admin/jobs/create" element={<PostJob />} />
+        <Route path="/admin/jobs/:id/applicants" element={<Applicants />} />
       </Routes>
 
       <Footer />

@@ -1,6 +1,12 @@
+import ApplicansTable from './Admin/Applicants/ApplicansTable';
+import Applicants from './Admin/Applicants/Applicants';
 import Companies from './Admin/Companies';
 import CompaniesTable from './Admin/CompaniesTable';
+import CompanySetup from './Admin/CompanySetup';
 import CreateCompany from './Admin/CreateCompany';
+import AdminJobs from './Admin/Jobs/AdminJobs';
+import AdminJobsTable from './Admin/Jobs/AdminJobsTable';
+import PostJob from './Admin/Jobs/PostJob';
 import AppliedJobs from './components/AppliedJobs';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
@@ -18,14 +24,18 @@ import UpdateProfileDilouge from './components/UpdateProfileDilouge';
 import Browse from './pages/Browse';
 import DetailsPage from './pages/DetailsPage';
 import Jobs from './pages/Jobs';
-import CompanySetup from './Admin/CompanySetup';
 
 export {
+  AdminJobs,
+  AdminJobsTable,
+  ApplicansTable,
+  Applicants,
   AppliedJobs,
   Browse,
   CategoryCrausel,
   Companies,
   CompaniesTable,
+  CompanySetup,
   CreateCompany,
   DetailsPage,
   FilterCard,
@@ -38,9 +48,8 @@ export {
   LatestJob,
   Login,
   Navbar,
+  PostJob,
   Profile,
   Signup,
   UpdateProfileDilouge,
-  CompanySetup,
- 
 };

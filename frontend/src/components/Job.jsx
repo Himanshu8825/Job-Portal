@@ -11,8 +11,8 @@ const Job = ({ job }) => {
     const createdAt = new Date(mongodbTime);
     const currentTime = new Date();
     const timeDifference = currentTime - createdAt;
-    return Math.floor(timeDifference/(1000*24*60*60));
-}
+    return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
+  };
 
   return (
     <div className="p-4 poppins-medium rounded-xl  shadow-md bg-white border border-gray-200 cursor-pointer transition-all  duration-300 poppins-medium">
@@ -30,7 +30,7 @@ const Job = ({ job }) => {
       <div className="flex items-center gap-2 my-2">
         <Button variant="outline" className="p-6" size="icon">
           <Avatar>
-            <AvatarImage src=" https://www.netsolutions.com/insights/wp-content/uploads/2022/06/how-to-become-a-software-developer.webp " />
+            <AvatarImage src={job?.company?.logo} />
           </Avatar>
         </Button>
         <div className="">
