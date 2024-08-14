@@ -72,7 +72,7 @@ const AdminJobsTable = () => {
                   <div>
                     <Button
                       onClick={() =>
-                        navigate(`/admin/companies/${company._id}`)
+                        navigate(`/admin/companies/${job.company._id}`)
                       }
                       className=" bg-yellow-400 h-8 hover:bg-yellow-500 text-black"
                     >

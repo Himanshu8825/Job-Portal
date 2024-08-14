@@ -1,3 +1,4 @@
+import { APPLICATION_APT } from '@/assets/constant';
 import {
   Popover,
   PopoverContent,
@@ -12,8 +13,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import axios from 'axios';
 import { Check, MoreHorizontal, X } from 'lucide-react';
 import { useSelector } from 'react-redux';
+import { toast } from 'sonner';
 
 const status = [
   { label: 'Accepted', icon: <Check className="w-4 h-4 text-green-500" /> },
@@ -22,7 +25,23 @@ const status = [
 
 const ApplicantsTable = () => {
   const { applicants } = useSelector((state) => state.application);
-  console.log('Applicants ', applicants);
+
+  const statusHandler = async (status, id) => {
+    try {
+      const res = await axios.post(
+        `${APPLICATION_APT}/status/${id}/update`,
+        { status },
+        { withCredentials: true }
+      );
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <div className="poppins-medium">
@@ -75,14 +94,15 @@ const ApplicantsTable = () => {
                     </PopoverTrigger>
 
                     <PopoverContent className="w-32">
-                      {status.map((item, index) => (
+                      {status.map((i, index) => (
                         <div
                           key={index}
+                          onClick={()=> statusHandler(i.label, item._id)}
                           size="small"
                           className=" cursor-pointer flex items-center font-semibold gap-1 "
                         >
-                          {item.icon}
-                          <span className="">{item.label}</span>
+                          {i.icon}
+                          <span className="">{i.label}</span>
                         </div>
                       ))}
                     </PopoverContent>

@@ -16,11 +16,11 @@ const JobCard = ({ job }) => {
           <p className=" text-sm text-gray-600">{job?.description}</p>
         </div>
 
-        <div className="flex items-center gap-2 mt-4">
+        <div className="grid grid-cols-3 place-items-center gap-2 mt-4">
           {job?.requirements.map((item, index) => {
             return (
               <Badge key={index} variant={'ghost'} >
-                {item}
+               <p className=' inline-block p-1 text-center'> {item}</p>
               </Badge>
             );
           })}
@@ -34,7 +34,7 @@ const JobCard = ({ job }) => {
             {job?.jobType}
           </Badge>
           <Badge className={'text-[#7209b7]'} variant="ghost">
-            {job?.salary} LPA
+            {job?.salary} INR
           </Badge>
         </div>
       </div>

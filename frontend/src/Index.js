@@ -25,6 +25,7 @@ import Browse from './pages/Browse';
 import DetailsPage from './pages/DetailsPage';
 import Jobs from './pages/Jobs';
 
+
 export {
   AdminJobs,
   AdminJobsTable,
@@ -52,4 +53,5 @@ export {
   Profile,
   Signup,
   UpdateProfileDilouge,
+  
 };

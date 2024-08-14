@@ -83,7 +83,7 @@ const CompanySetup = () => {
         <form onSubmit={submitHandler}>
           <div className="flex items-center gap-5 p-8">
             <Button
-              onClick={() => navigate('/admin/companies')}
+              onClick={() => navigate('/admin/jobs')}
               variant="outline"
               className="flex items-center gap-2 text-gray-500 font-semibold"
             >

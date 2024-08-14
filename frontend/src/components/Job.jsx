@@ -55,7 +55,7 @@ const Job = ({ job }) => {
               variant={'ghost'}
               className={'hover:text-[#7209b7]  '}
             >
-              {item}
+             <p className=' inline-block p-1 text-center'>  {item} </p>
             </Badge>
           );
         })}
@@ -69,7 +69,7 @@ const Job = ({ job }) => {
           {job?.jobType}
         </Badge>
         <Badge className={'text-[#7209b7]'} variant="ghost">
-          {job?.salary} LPA
+          {job?.salary} INR
         </Badge>
       </div>
 

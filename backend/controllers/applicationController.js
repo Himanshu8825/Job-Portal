@@ -11,7 +11,6 @@ const applyJob = async (req, res) => {
         .json({ message: 'Job is required', success: false });
     }
 
-
     const existingApplication = await Application.findOne({
       job: jobId,
       applicant: userId,
@@ -24,7 +23,6 @@ const applyJob = async (req, res) => {
     }
 
     const job = await Job.findById(jobId);
-
 
     if (!job) {
       return res.status(404).json({ message: 'Job not found', success: false });
@@ -111,10 +109,11 @@ const updateStatus = async (req, res) => {
   try {
     const { status } = req.body;
     const applicationId = req.params.id;
-    if (!status) {
+
+    if (!status || typeof status !== 'string') {
       return res
         .status(400)
-        .json({ message: 'Status is required', success: false });
+        .json({ message: 'Valid status is required', success: false });
     }
 
     const application = await Application.findOne({ _id: applicationId });
@@ -138,5 +137,6 @@ const updateStatus = async (req, res) => {
     return res.status(500).json({ message: 'Server Error', success: false });
   }
 };
+
 
 module.exports = { applyJob, getAppliedJobs, getApplicatns, updateStatus };

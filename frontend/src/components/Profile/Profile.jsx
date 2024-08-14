@@ -1,3 +1,4 @@
+import GetAllAppliedJobs from '@/hooks/GetAllAppliedJobs';
 import { AppliedJobs, UpdateProfileDilouge } from '@/Index';
 import { Mail, PhoneCall } from 'lucide-react';
 import { useState } from 'react';
@@ -8,9 +9,12 @@ import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 
 const Profile = () => {
+  GetAllAppliedJobs();
   const isResume = true;
   const [open, setOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  
+
 
   const toggle = () => {
     setOpen((prev) => !prev);

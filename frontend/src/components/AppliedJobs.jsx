@@ -1,4 +1,4 @@
-
+import { useSelector } from 'react-redux';
 import { Badge } from './ui/badge';
 import {
   Table,
@@ -11,8 +11,10 @@ import {
 } from './ui/table';
 
 const AppliedJobs = () => {
+  const { allAppliedJobs } = useSelector((state) => state.job);
+
   return (
-    <div className='poppins-medium'>
+    <div className="poppins-medium">
       <Table>
         <TableCaption>A list of your applied Jobs</TableCaption>
         <TableHeader>
@@ -24,17 +26,30 @@ const AppliedJobs = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[1, 2].map((item, index) => (
-            <TableRow key={index}>
-              <TableCell>05-08-2024</TableCell>
-              <TableCell>Backend Developer</TableCell>
-              <TableCell>Amazon</TableCell>
-              <TableCell className=" text-right">
-
-                <Badge className=" bg-green-400 hover:bg-green-600 cursor-pointer">Selected</Badge>
-              </TableCell>
-            </TableRow>
-          ))}
+          {allAppliedJobs.length <= 0 ? (
+            <span>You haven't applied any job yet.</span>
+          ) : (
+            allAppliedJobs.map((appliedJob) => (
+              <TableRow key={appliedJob._id}>
+                <TableCell>{appliedJob?.createdAt?.split('T')[0]}</TableCell>
+                <TableCell>{appliedJob.job?.title}</TableCell>
+                <TableCell>{appliedJob.job?.company?.name}</TableCell>
+                <TableCell className="text-right">
+                  <Badge
+                    className={`${
+                      appliedJob?.status === 'rejected'
+                        ? 'bg-red-500'
+                        : appliedJob.status === 'pending'
+                        ? 'bg-gray-400'
+                        : 'bg-green-500'
+                    }`}
+                  >
+                    {appliedJob.status.toUpperCase()}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </div>
