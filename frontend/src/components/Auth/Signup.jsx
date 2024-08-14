@@ -2,7 +2,7 @@ import { USER_API } from '@/assets/constant';
 import { setLoading } from '@/Redux/Slices/authSlice';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -15,6 +15,8 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
   const { loading } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -68,6 +70,12 @@ const Signup = () => {
       dispatch(setLoading(false));
     }
   };
+ 
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <div className="w-full px-16 py-4">

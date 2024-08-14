@@ -52,7 +52,11 @@ const DetailsPage = () => {
 
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job));
-          setIsApplied(res.data.job.applications.some(application=>application.applicant === user?._id))
+          setIsApplied(
+            res.data.job.applications.some(
+              (application) => application.applicant === user?._id
+            )
+          );
         }
       } catch (error) {
         console.log(error);
@@ -74,7 +78,7 @@ const DetailsPage = () => {
               {singleJob?.jobType}
             </Badge>
             <Badge className={'text-[#7209b7] font-bold'} variant="ghost">
-              {singleJob?.salary} LPA
+              {singleJob?.salary} INR
             </Badge>
           </div>
         </div>
@@ -136,7 +140,7 @@ const DetailsPage = () => {
         <h1 className="font-bold my-1">
           Salary:{' '}
           <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.salary} LPA
+            {singleJob?.salary} INR
           </span>
         </h1>
         <h1 className="font-bold my-1">

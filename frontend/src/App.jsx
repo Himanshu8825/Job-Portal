@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import ProtectedRoute from './Admin/ProtectedRoute';
 import {
   AdminJobs,
   Applicants,
@@ -33,12 +34,54 @@ const App = () => {
 
         {/* Admin Route Started */}
 
-        <Route path="/admin/companies" element={<Companies />} />
-        <Route path="/admin/companies/create" element={<CreateCompany />} />
-        <Route path="/admin/companies/:id" element={<CompanySetup />} />
-        <Route path="/admin/jobs" element={<AdminJobs />} />
-        <Route path="/admin/jobs/create" element={<PostJob />} />
-        <Route path="/admin/jobs/:id/applicants" element={<Applicants />} />
+        <Route
+          path="/admin/companies"
+          element={
+            <ProtectedRoute>
+              <Companies />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/companies/create"
+          element={
+            <ProtectedRoute>
+              <CreateCompany />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/companies/:id"
+          element={
+            <ProtectedRoute>
+              <CompanySetup />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/jobs"
+          element={
+            <ProtectedRoute>
+              <AdminJobs />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/jobs/create"
+          element={
+            <ProtectedRoute>
+              <PostJob />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/jobs/:id/applicants"
+          element={
+            <ProtectedRoute>
+              <Applicants />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       <Footer />
