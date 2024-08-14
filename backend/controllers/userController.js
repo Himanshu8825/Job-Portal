@@ -104,7 +104,7 @@ const loginUser = async (req, res) => {
       .cookie('token', token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpsOnly: true,
-        sameSite: 'strict',
+        
       })
       .json({
         message: `Welcome back ${user.fullName}`,
