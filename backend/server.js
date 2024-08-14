@@ -10,7 +10,7 @@ const jobRoute = require('./routes/JobRoute');
 const applicationRouter = require('./routes/ApplicationRoute');
 
 //! Environment variables for port and MongoDB URI
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 //!middilewares
 app.use(
@@ -32,7 +32,7 @@ app.use('/company', companyRouter);
 app.use('/job', jobRoute);
 app.use('/application', applicationRouter);
 
-app.get('/', (req, res) => {
+app.get('/',  (req, res) => {
   res.send('Hello, world!');
 });
 
