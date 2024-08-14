@@ -15,7 +15,10 @@ const port = process.env.PORT;
 //!middilewares
 app.use(
   cors({
-    origin: [process.env.ORIGIN],
+    origin: [
+      process.env.ORIGIN,
+      'https://vercel.com/himanshu8825s-projects/job-portal',
+    ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true,
   })
