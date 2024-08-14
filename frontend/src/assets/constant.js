@@ -1,7 +1,11 @@
-export const USER_API = 'http://localhost:3000/user';
+const url = 'https://job-portal-vhqt.onrender.com';
 
-export const JOB_API = 'http://localhost:3000/job';
+// const url = 'https://localhost:3000/'
 
-export const APPLICATION_APT = 'http://localhost:3000/application';
+export const USER_API = `${url}/user`;
 
-export const COMPANY_API = 'http://localhost:3000/company';
+export const JOB_API = `${url}/job`;
+
+export const APPLICATION_APT = `${url}/application`;
+
+export const COMPANY_API = `${url}/company`;
