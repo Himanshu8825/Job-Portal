@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173',
-      'https://vercel.com/himanshu8825s-projects/job-portal',
+      'https://job-portal-eight-nu.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true,
