@@ -16,7 +16,7 @@ const port = process.env.PORT;
 app.use(
   cors({
     origin: [
-      process.env.ORIGIN,
+      'http://localhost:5173',
       'https://vercel.com/himanshu8825s-projects/job-portal',
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
