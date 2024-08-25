@@ -1,6 +1,6 @@
-// const url = 'https://job-portal-vhqt.onrender.com';
+const url = 'https://job-portal-szea.onrender.com';
 
-const url = 'http://localhost:3000'
+// const url = 'http://localhost:3000'
 
 export const USER_API = `${url}/user`;
 // console.log(USER_API)
