@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Bookmark } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarImage } from './ui/avatar';
@@ -6,6 +7,11 @@ import { Button } from './ui/button';
 
 const Job = ({ job }) => {
   const navigate = useNavigate();
+  const [isReadMore, setIsReadMore] = useState(false);
+
+  const toggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
 
   const daysAgoFunc = (mongodbTime) => {
     const createdAt = new Date(mongodbTime);
@@ -15,14 +21,14 @@ const Job = ({ job }) => {
   };
 
   return (
-    <div className="p-4 poppins-medium rounded-xl  shadow-md bg-white border border-gray-200 cursor-pointer transition-all  duration-300 poppins-medium">
+    <div className="p-4 poppins-medium rounded-xl shadow-md bg-white border border-gray-200 cursor-pointer transition-all duration-300 poppins-medium">
       <div className="flex justify-between items-center">
         <p className="text-sm text-gray-500">
           {daysAgoFunc(job?.createdAt) === 0
             ? 'Today'
             : `${daysAgoFunc(job?.createdAt)} days ago`}
         </p>
-        <Button variant="outline" className=" rounded-full" size="icon">
+        <Button variant="outline" className="rounded-full" size="icon">
           <Bookmark />
         </Button>
       </div>
@@ -33,32 +39,38 @@ const Job = ({ job }) => {
             <AvatarImage src={job?.company?.logo} />
           </Avatar>
         </Button>
-        <div className="">
-          <h1 className=" font-medium text-lg">{job?.company?.name}</h1>
+        <div>
+          <h1 className="font-medium text-lg">{job?.company?.name}</h1>
           <div className="flex gap-4 items-center">
-            <p className=" text-sm text-gray-500">India</p>
-            <p className=" text-sm ">{job?.location}</p>
+            <p className="text-sm text-gray-500">India</p>
+            <p className="text-sm">{job?.location}</p>
           </div>
         </div>
       </div>
 
-      <div className="">
+      <div>
         <h1 className="font-semibold text-lg py-1">{job?.title}</h1>
-        <p className=" text-sm text-gray-600">{job?.description}</p>
+        <p className="text-sm text-gray-600">
+          {isReadMore ? job?.description : `${job?.description.slice(0, 100)}...`}
+          <span
+            onClick={toggleReadMore}
+            className="text-blue-600 cursor-pointer"
+          >
+            {isReadMore ? ' Read Less' : ' Read More'}
+          </span>
+        </p>
       </div>
 
-      <div className="grid grid-cols-3 place-items-center gap-2 mt-4 ">
-        {job?.requirements.map((item, index) => {
-          return (
-            <Badge
-              key={index}
-              variant={'ghost'}
-              className={'hover:text-[#7209b7]  '}
-            >
-             <p className=' inline-block p-1 text-center'>  {item} </p>
-            </Badge>
-          );
-        })}
+      <div className="grid grid-cols-3 place-items-center gap-2 mt-4">
+        {job?.requirements.map((item, index) => (
+          <Badge
+            key={index}
+            variant={'ghost'}
+            className={'hover:text-[#7209b7]'}
+          >
+            <p className="inline-block p-1 text-center">{item}</p>
+          </Badge>
+        ))}
       </div>
 
       <div className="flex items-center gap-2 mt-4">
@@ -73,7 +85,7 @@ const Job = ({ job }) => {
         </Badge>
       </div>
 
-      <div className="flex items-center justify-between  mt-6">
+      <div className="flex items-center justify-between mt-6">
         <Button
           onClick={() => navigate(`/details/${job?._id}`)}
           variant="outline"

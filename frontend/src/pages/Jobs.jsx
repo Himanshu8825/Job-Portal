@@ -1,8 +1,8 @@
 import GetAllJobs from '@/hooks/GetAllJobs';
 import { FilterCard, Job } from '@/Index';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { motion } from 'framer-motion';
 
 const Jobs = () => {
   GetAllJobs();
@@ -18,7 +18,9 @@ const Jobs = () => {
         const filteredJobs = allJobs.filter((job) => {
           return (
             job.title.toLowerCase().includes(searchedQuery.toLowerCase()) ||
-            job.description.toLowerCase().includes(searchedQuery.toLowerCase()) ||
+            job.description
+              .toLowerCase()
+              .includes(searchedQuery.toLowerCase()) ||
             job.location.toLowerCase().includes(searchedQuery.toLowerCase())
           );
         });
@@ -41,11 +43,13 @@ const Jobs = () => {
         <div className="flex-1 overflow-y-auto pb-5">
           <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
             {filterJobs.map((job) => (
-                <motion.div
-                                                initial={{ opacity: 0, x: 100 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                exit={{ opacity: 0, x: -100 }}
-                                                transition={{ duration: 0.3 }} key={job._id}>
+              <motion.div
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.3 }}
+                key={job._id}
+              >
                 <Job job={job} />
               </motion.div>
             ))}

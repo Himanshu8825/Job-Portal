@@ -1,3 +1,4 @@
+import { JOB_API } from '@/assets/constant';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -8,14 +9,41 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const AdminJobsTable = () => {
   const { adminAllJobs, searchJobByText } = useSelector((state) => state.job);
   const [filterJobs, setFilterJobs] = useState(adminAllJobs);
   const navigate = useNavigate();
+
+  const deleteJobs = async (jobID) => {
+    try {
+      const res = await axios.delete(`${JOB_API}/deleteJob/${jobID}`, {
+        withCredentials: true,
+      });
+
+      if (res.status === 200) {
+
+        toast.success(res.data.message); 
+
+        setFilterJobs((prevJobs) => {
+          const updatedJobs = prevJobs.filter((job) => job._id !== jobID);
+          console.log('Updated job list:', updatedJobs);
+          return updatedJobs;
+        });
+      } else {
+        toast.error('Failed to delete job.');
+      }
+    } catch (error) {
+      console.error('Error deleting job:', error.response.data);
+      toast.error(error.response?.data?.error || 'An error occurred');
+    }
+  };
+
 
   useEffect(() => {
     const filteredJob =
@@ -82,9 +110,7 @@ const AdminJobsTable = () => {
 
                   <div>
                     <Button
-                      // onClick={() =>
-                      //   navigate(`/admin/companies/${company._id}`)
-                      // }
+                      onClick={() => deleteJobs(job._id)}
                       className=" bg-red-600 h-8 hover:bg-red-700 text-white"
                     >
                       Delete

@@ -5,6 +5,7 @@ const {
   getAllJobs,
   getJobById,
   getAdminJobs,
+  deleteJobs,
 } = require('../controllers/jobController');
 
 const jobRoute = express.Router();
@@ -16,5 +17,7 @@ jobRoute.get('/allJobs', isAuthenticated, getAllJobs);
 jobRoute.get('/jobs/:id', isAuthenticated, getJobById);
 
 jobRoute.get('/adminJob', isAuthenticated, getAdminJobs);
+
+jobRoute.delete('/deleteJob/:id', isAuthenticated, deleteJobs);
 
 module.exports = jobRoute;

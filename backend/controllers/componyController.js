@@ -1,4 +1,5 @@
 const Company = require('../models/companyModel');
+const Job = require('../models/JobModel.js');
 const cloudinary = require('../utils/cloudinary.js');
 const getDataUri = require('../utils/dataUri');
 
@@ -112,9 +113,38 @@ const updateCompany = async (req, res) => {
   }
 };
 
+const deleteCompany = async (req, res) => {
+  try {
+    const companyID = req.params.id;
+    
+
+    const company = await Company.findById(companyID);
+
+    if (!company) {
+      return res
+        .status(404)
+        .json({ error: 'Company not found', success: false });
+    }
+
+    await Job.deleteMany({ company: companyID });
+
+    await Company.deleteOne({ _id: companyID });
+
+    return res
+      .status(200)
+      .json({ message: 'Company deleted successfully', success: true });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ error: error.message, success: false });
+  }
+};
+
+
+
 module.exports = {
   registerCompany,
   getCompanies,
   getCompanyByID,
   updateCompany,
+  deleteCompany,
 };

@@ -139,4 +139,25 @@ const getAdminJobs = async (req, res) => {
   }
 };
 
-module.exports = { postJob, getAllJobs, getJobById, getAdminJobs };
+const deleteJobs = async (req, res) => {
+  try {
+    const jobID = req.params.id;
+
+    const job = await Job.findById(jobID);
+
+    if (!job) {
+      return res.status(404).json({ message: 'Job not found', success: false });
+    }
+
+    await Job.deleteOne({ _id: jobID });
+
+    return res
+      .status(200)
+      .json({ message: 'Job deleted successfully', success: true });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ error: error.message, success: false });
+  }
+};
+
+module.exports = { postJob, getAllJobs, getJobById, getAdminJobs , deleteJobs };

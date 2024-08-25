@@ -1,3 +1,4 @@
+import { DELETE_COMPANY_API } from '@/assets/constant';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,9 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const CompaniesTable = () => {
   const { companies, searchCompanyByText } = useSelector(
@@ -19,6 +22,28 @@ const CompaniesTable = () => {
   );
   const [filterCompany, setFilterCompany] = useState(companies);
   const navigate = useNavigate();
+
+  const deleteHAndler = async (companyID) => {
+    try {
+      const res = await axios.delete(`${DELETE_COMPANY_API}/${companyID}`, {
+        withCredentials: true,
+      });
+
+      if (res.status === 200) {
+        toast.success(res.data.message);
+
+        // Update the local state to remove the deleted company
+        setFilterCompany((prevCompanies) =>
+          prevCompanies.filter((company) => company._id !== companyID)
+        );
+      }
+    } catch (error) {
+      
+      console.error(error.response.data);
+      toast.error(error.response?.data?.error || 'An error occurred');
+    }
+  };
+
 
   useEffect(() => {
     const filteredCompany =
@@ -58,14 +83,23 @@ const CompaniesTable = () => {
               <TableCell className=" text-center">
                 {company.createdAt.split('T')[0]}
               </TableCell>
-              <TableCell className=" text-right">
-                <Button
-                  onClick={() => navigate(`/admin/companies/${company._id}`)}
-                  variant="secondary"
-                  className=" bg-yellow-400 h-8 hover:bg-yellow-500"
-                >
-                  Edit
-                </Button>
+              <TableCell className=" text-right ">
+                <div className="flex gap-4 justify-end">
+                  <Button
+                    onClick={() => navigate(`/admin/companies/${company._id}`)}
+                    variant="secondary"
+                    className=" bg-yellow-400 h-8 hover:bg-yellow-500"
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    onClick={() => deleteHAndler(company._id)}
+                    variant="secondary"
+                    className=" bg-red-600 h-8 hover:bg-red-700 text-white"
+                  >
+                    Delete
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}
